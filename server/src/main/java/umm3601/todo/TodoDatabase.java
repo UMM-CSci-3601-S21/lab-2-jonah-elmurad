@@ -66,13 +66,27 @@ public class TodoDatabase {
       filteredUsers = filterUsersByCompany(filteredUsers, targetCompany);
     }
     */
+
+    // Filter status if defined
+    if (queryParams.containsKey("status")) {
+      String statusParam = queryParams.get("status").get(0);
+      boolean targetStatus = false;
+
+      if ("complete".equals(statusParam)) {
+        targetStatus = true;
+      }
+
+      //boolean targetStatus = Boolean.parseBoolean(statusParam);
+      filteredTodos = filterTodosByStatus(filteredTodos, targetStatus);
+    }
+
+    // Filter with limit if defined
     if (queryParams.containsKey("limit")) {
       String limitParam = queryParams.get("limit").get(0);
 
       try {
         int targetLimit = Integer.parseInt(limitParam);
         if (targetLimit > filteredTodos.length || targetLimit < 0) {
-          return filteredTodos;
         } else {
           Todo[] tempArray = new Todo[targetLimit];
 
@@ -113,4 +127,16 @@ public class TodoDatabase {
     return Arrays.stream(users).filter(x -> x.company.equals(targetCompany)).toArray(User[]::new);
   }
   */
+
+  /**
+   * Get an array of all the todos having the target status.
+   *
+   * @param todos         the list of todos to filter by status
+   * @param targetStatus the target status to look for
+   * @return an array of all the todos from the given list that have the target
+   *         status
+   */
+  public Todo[] filterTodosByStatus(Todo[] todos, boolean targetStatus) {
+	  return Arrays.stream(todos).filter(x -> x.status == targetStatus).toArray(Todo[]::new);
+  }
 }
