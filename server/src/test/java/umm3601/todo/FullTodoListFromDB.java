@@ -1,4 +1,4 @@
-package umm3601.user;
+package umm3601.todo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -15,14 +15,14 @@ public class FullTodoListFromDB {
 
   @Test
   public void totalTodoCount() throws IOException {
-    Database db = new Database("/todos.json");
+    TodoDatabase db = new TodoDatabase("/todos.json");
     Todo[] allTodos = db.listTodos(new HashMap<>());
-    assertEquals(10, allTodos.length, "Incorrect total number of todos");
+    assertEquals(300, allTodos.length, "Incorrect total number of todos");
   }
 
   @Test
   public void firstTodoInFullList() throws IOException {
-    Database db = new Database("/todos.json");
+    TodoDatabase db = new TodoDatabase("/todos.json");
     Todo[] allTodos = db.listTodos(new HashMap<>());
     Todo firstTodo = allTodos[0];
     assertEquals("58895985a22c04e761776d54", firstTodo._id, "Incorrect id");
