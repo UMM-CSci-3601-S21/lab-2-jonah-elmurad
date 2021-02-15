@@ -71,7 +71,7 @@ public class TodoDatabase {
 
       try {
         int targetLimit = Integer.parseInt(limitParam);
-        if (targetLimit > filteredTodos.length) {
+        if (targetLimit > filteredTodos.length || targetLimit < 0) {
           return filteredTodos;
         } else {
           Todo[] tempArray = new Todo[targetLimit];
