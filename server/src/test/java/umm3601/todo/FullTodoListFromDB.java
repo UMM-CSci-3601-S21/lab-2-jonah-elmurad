@@ -9,7 +9,7 @@ import java.util.HashMap;
 import org.junit.jupiter.api.Test;
 
 /**
- * Tests umm3601.todo.Database listTodo functionality
+ * Tests umm3601.todo.TodoDatabase listTodo functionality
  */
 public class FullTodoListFromDB {
 
