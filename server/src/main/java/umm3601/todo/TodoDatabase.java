@@ -66,7 +66,25 @@ public class TodoDatabase {
       filteredUsers = filterUsersByCompany(filteredUsers, targetCompany);
     }
     */
-    // Process other query parameters here...
+    if (queryParams.containsKey("limit")) {
+      String limitParam = queryParams.get("limit").get(0);
+
+      try {
+        int targetLimit = Integer.parseInt(limitParam);
+        if (targetLimit > filteredTodos.length || targetLimit < 0) {
+          return filteredTodos;
+        } else {
+          Todo[] tempArray = new Todo[targetLimit];
+
+          for (int i = 0; i < targetLimit; i++) {
+            tempArray[i] = filteredTodos[i];
+          }
+          filteredTodos = tempArray;
+        }
+      } catch (NumberFormatException e) {
+        throw new BadRequestResponse("Specified limit '" + limitParam + "' can't be parsed to an integer");
+      }
+    }
 
     return filteredTodos;
   }
@@ -95,5 +113,4 @@ public class TodoDatabase {
     return Arrays.stream(users).filter(x -> x.company.equals(targetCompany)).toArray(User[]::new);
   }
   */
-
 }
