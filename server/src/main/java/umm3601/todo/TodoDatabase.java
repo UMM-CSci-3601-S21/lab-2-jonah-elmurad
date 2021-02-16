@@ -45,7 +45,6 @@ public class TodoDatabase {
         targetStatus = true;
       }
 
-      //boolean targetStatus = Boolean.parseBoolean(statusParam);
       filteredTodos = filterTodosByStatus(filteredTodos, targetStatus);
     }
 
@@ -71,10 +70,10 @@ public class TodoDatabase {
 
     // Filter with contains if defined
     if (queryParams.containsKey("contains")) {
-     String bodyParam = queryParams.get("contains").get(0);
-     filteredTodos = filterTodosByBody(filteredTodos, bodyParam);
+      String bodyParam = queryParams.get("contains").get(0);
+      filteredTodos = filterTodosByBody(filteredTodos, bodyParam);
 
-    }
+     }
 
     // Filter with owner if defined
     if (queryParams.containsKey("owner")) {
@@ -102,7 +101,6 @@ public class TodoDatabase {
   public Todo[] filterTodosByStatus(Todo[] todos, boolean targetStatus) {
 	  return Arrays.stream(todos).filter(x -> x.status == targetStatus).toArray(Todo[]::new);
   }
-
   /** Get an array of all the todos having the target body.
    *
    * @param todos         the list of todos to filter by bodies
@@ -139,4 +137,3 @@ public class TodoDatabase {
   }
 
 }
-
