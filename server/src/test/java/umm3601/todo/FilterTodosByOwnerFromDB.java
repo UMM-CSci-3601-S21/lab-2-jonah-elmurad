@@ -11,7 +11,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 /**
- * Tests umm3601.user.Database filterTodosByBody and listTodos with _body_ query
+ * Tests umm3601.todo.TodoDatabase filterTodosByBody and listTodos with _body_ query
  * parameters
  */
 public class FilterTodosByOwnerFromDB {
@@ -31,8 +31,6 @@ public class FilterTodosByOwnerFromDB {
     assertEquals(0, ownerSantaTodos.length, "Incorrect number of todos with owner Santa");
 
   }
-
-
 
   @Test
   public void listTodosWithOwnerFilter() throws IOException {

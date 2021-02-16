@@ -28,19 +28,6 @@ public class TodoDatabase {
   }
 
   /**
-  /**
-   * Get the single todo specified by the given ID. Return `null` if there is no
-   * user with that ID.
-   *
-   * @param id the ID of the desired user
-   * @return the user with the given ID, or null if there is no user with that ID
-   *
-  public User getUser(String id) {
-    return Arrays.stream(allUsers).filter(x -> x._id.equals(id)).findFirst().orElse(null);
-  }
-  */
-
-  /**
    * Get an array of all the todos satisfying the queries in the params.
    *
    * @param queryParams map of key-value pairs for the query
@@ -48,24 +35,6 @@ public class TodoDatabase {
    */
   public Todo[] listTodos(Map<String, List<String>> queryParams) {
     Todo[] filteredTodos = allTodos;
-
-    /**
-    // Filter age if defined
-    if (queryParams.containsKey("age")) {
-      String ageParam = queryParams.get("age").get(0);
-      try {
-        int targetAge = Integer.parseInt(ageParam);
-        filteredUsers = filterUsersByAge(filteredUsers, targetAge);
-      } catch (NumberFormatException e) {
-        throw new BadRequestResponse("Specified age '" + ageParam + "' can't be parsed to an integer");
-      }
-    }
-    // Filter company if defined
-    if (queryParams.containsKey("company")) {
-      String targetCompany = queryParams.get("company").get(0);
-      filteredUsers = filterUsersByCompany(filteredUsers, targetCompany);
-    }
-    */
 
     // Filter status if defined
     if (queryParams.containsKey("status")) {
@@ -100,17 +69,20 @@ public class TodoDatabase {
       }
     }
 
+    // Filter with contains if defined
     if (queryParams.containsKey("contains")) {
      String bodyParam = queryParams.get("contains").get(0);
      filteredTodos = filterTodosByBody(filteredTodos, bodyParam);
 
     }
 
+    // Filter with owner if defined
     if (queryParams.containsKey("owner")) {
       String ownerParam = queryParams.get("owner").get(0);
       filteredTodos = filterTodosByOwner(filteredTodos, ownerParam);
     }
 
+    // Filter with category if defined
     if (queryParams.containsKey("category")) {
       String categoryParam = queryParams.get("category").get(0);
       filteredTodos = filterTodosByCategory(filteredTodos, categoryParam);
@@ -118,31 +90,6 @@ public class TodoDatabase {
 
     return filteredTodos;
   }
-  /**
-  /**
-   * Get an array of all the users having the target age.
-   *
-   * @param users     the list of users to filter by age
-   * @param targetAge the target age to look for
-   * @return an array of all the users from the given list that have the target
-   *         age
-   *
-  public User[] filterUsersByAge(User[] users, int targetAge) {
-    return Arrays.stream(users).filter(x -> x.age == targetAge).toArray(User[]::new);
-  }
-
-  /**
-   * Get an array of all the users having the target company.
-   *
-   * @param users         the list of users to filter by company
-   * @param targetCompany the target company to look for
-   * @return an array of all the users from the given list that have the target
-   *         company
-   *
-  public User[] filterUsersByCompany(User[] users, String targetCompany) {
-    return Arrays.stream(users).filter(x -> x.company.equals(targetCompany)).toArray(User[]::new);
-  }
-  */
 
   /**
    * Get an array of all the todos having the target status.
@@ -157,18 +104,17 @@ public class TodoDatabase {
   }
 
   /** Get an array of all the todos having the target body.
-  *
-  * @param todos         the list of todos to filter by bodies
-  * @param targetBody the target body to look for
-  * @return an array of all todos from the given list that have the target
-  *         body
-  */
- public Todo[] filterTodosByBody(Todo[] todos, String targetBody) {
+   *
+   * @param todos         the list of todos to filter by bodies
+   * @param targetBody the target body to look for
+   * @return an array of all todos from the given list that have the target
+   *         body
+   */
+  public Todo[] filterTodosByBody(Todo[] todos, String targetBody) {
    return Arrays.stream(todos).filter(x -> x.body.contains(targetBody)).toArray(Todo[]::new);
+  }
 
- }
-
-/**
+  /**
    * Get an array of all the todos having the target owner.
    *
    * @param todos         the list of todos to filter by owner
