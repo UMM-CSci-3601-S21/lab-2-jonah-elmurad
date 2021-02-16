@@ -40,8 +40,8 @@ public class FilterTodosByOwnerFromDB {
     Map<String, List<String>> queryParams = new HashMap<>();
 
     queryParams.put("owner", Arrays.asList(new String[] { "Blanche" }));
-    Todo[] bodyBlancheTodos = db.listTodos(queryParams);
-    assertEquals(43, bodyBlancheTodos.length, "Incorrect number of todos with owner Blanche");
+    Todo[] ownerBlancheTodos = db.listTodos(queryParams);
+    assertEquals(43, ownerBlancheTodos.length, "Incorrect number of todos with owner Blanche");
 
     queryParams.put("owner", Arrays.asList(new String[] { "fry" }));
     Todo[] ownerSearchFromSmallLetterTodos = db.listTodos(queryParams);
