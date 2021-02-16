@@ -1,4 +1,4 @@
-package umm3601.user;
+package umm3601.todo;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,47 +11,45 @@ import com.google.gson.Gson;
 import io.javalin.http.BadRequestResponse;
 
 /**
- * A fake "database" of user info
- * <p>
- * Since we don't want to complicate this lab with a real database, we're going
- * to instead just read a bunch of user data from a specified JSON file, and
- * then provide various database-like methods that allow the `UserController` to
- * "query" the "database".
+ * A fake "database" of todo info
  */
-public class Database {
+public class TodoDatabase {
 
-  private User[] allUsers;
+  private Todo[] allTodos;
 
-  public Database(String userDataFile) throws IOException {
+  public TodoDatabase(String todoDataFile) throws IOException {
     Gson gson = new Gson();
-    InputStreamReader reader = new InputStreamReader(getClass().getResourceAsStream(userDataFile));
-    allUsers = gson.fromJson(reader, User[].class);
+    InputStreamReader reader = new InputStreamReader(getClass().getResourceAsStream(todoDataFile));
+    allTodos = gson.fromJson(reader, Todo[].class);
   }
 
   public int size() {
-    return allUsers.length;
+    return allTodos.length;
   }
 
   /**
-   * Get the single user specified by the given ID. Return `null` if there is no
+  /**
+   * Get the single todo specified by the given ID. Return `null` if there is no
    * user with that ID.
    *
    * @param id the ID of the desired user
    * @return the user with the given ID, or null if there is no user with that ID
-   */
+   *
   public User getUser(String id) {
     return Arrays.stream(allUsers).filter(x -> x._id.equals(id)).findFirst().orElse(null);
   }
+  */
 
   /**
-   * Get an array of all the users satisfying the queries in the params.
+   * Get an array of all the todos satisfying the queries in the params.
    *
    * @param queryParams map of key-value pairs for the query
-   * @return an array of all the users matching the given criteria
+   * @return an array of all the todos matching the given criteria
    */
-  public User[] listUsers(Map<String, List<String>> queryParams) {
-    User[] filteredUsers = allUsers;
+  public Todo[] listTodos(Map<String, List<String>> queryParams) {
+    Todo[] filteredTodos = allTodos;
 
+    /**
     // Filter age if defined
     if (queryParams.containsKey("age")) {
       String ageParam = queryParams.get("age").get(0);
@@ -67,11 +65,12 @@ public class Database {
       String targetCompany = queryParams.get("company").get(0);
       filteredUsers = filterUsersByCompany(filteredUsers, targetCompany);
     }
+    */
     // Process other query parameters here...
 
-    return filteredUsers;
+    return filteredTodos;
   }
-
+  /**
   /**
    * Get an array of all the users having the target age.
    *
@@ -79,7 +78,7 @@ public class Database {
    * @param targetAge the target age to look for
    * @return an array of all the users from the given list that have the target
    *         age
-   */
+   *
   public User[] filterUsersByAge(User[] users, int targetAge) {
     return Arrays.stream(users).filter(x -> x.age == targetAge).toArray(User[]::new);
   }
@@ -91,9 +90,10 @@ public class Database {
    * @param targetCompany the target company to look for
    * @return an array of all the users from the given list that have the target
    *         company
-   */
+   *
   public User[] filterUsersByCompany(User[] users, String targetCompany) {
     return Arrays.stream(users).filter(x -> x.company.equals(targetCompany)).toArray(User[]::new);
   }
+  */
 
 }
